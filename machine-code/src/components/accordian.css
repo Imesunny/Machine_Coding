@@ -1,0 +1,16 @@
+.main-div {
+    padding: 20px;
+    background-color: #f0f0f0;
+    color: gray;
+  }
+ .main-heading{
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+ }
+
+ .answers{
+    background-color: bisque;
+    border-radius: 5px;
+    
+ }
