@@ -6,6 +6,7 @@ const FetchData = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [originalData, setOriginalData] = useState([]);
+  const [filterBy, setFilterBy] = useState("default");
 
   const fetchData = async () => {
     try {
@@ -19,19 +20,34 @@ const FetchData = () => {
   };
 
   const handleSearchInput = (e) => {
-    
     setSearch(e.target.value);
     const searchResult = originalData.filter((ele) => {
-      return ele.title.toLowerCase().includes(e.target.value.toLowerCase()) || ele.category.toLowerCase().includes(e.target.value);
+      return (
+        ele.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        ele.category.toLowerCase().includes(e.target.value)
+      );
     });
     setData(searchResult);
   };
   console.log(search);
 
+  const handleCategory = (e) => {
+    setFilterBy(e.target.value);
+    if (e.target.value === "default") {
+      setData(originalData);
+    } else {
+      const filteredProduct = originalData.filter((ele) => {
+        return ele.category === e.target.value;
+      });
+      setData(filteredProduct);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  console.log(filterBy);
   console.log(data);
   return (
     <>
@@ -44,8 +60,19 @@ const FetchData = () => {
           value={search}
           onChange={handleSearchInput}
         />
-       
+
+        <span>
+          <label>Filter by Category🔎</label>
+          <select value={filterBy} onChange={handleCategory}>
+            <option value="default">--Select--</option>
+            <option value="men's clothing">Mens Clothing</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="electronics">Electronics</option>
+            <option value="women's clothing">Womens Clothing</option>
+          </select>
+        </span>
       </div>
+
       <div className="product-grid">
         {data?.map((ele) => {
           return <DisplayData ele={ele} key={ele.id} />;

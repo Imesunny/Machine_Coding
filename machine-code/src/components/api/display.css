@@ -32,8 +32,18 @@
   
   .search{
     margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
   }
 
   .search input{
     padding: 10px;
+  }
+
+  .search span{
+    font-size: 1rem;
+  }
+
+  .search span select{
+    padding: 10px
   }
